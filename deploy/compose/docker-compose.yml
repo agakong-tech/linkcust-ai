@@ -1,0 +1,21 @@
+services:
+  linkcust:
+    image: ${HARBOR_REGISTRY}/${HARBOR_PROJECT}/${IMAGE_NAME}:${IMAGE_TAG}
+    container_name: linkcust-ai
+    restart: unless-stopped
+    env_file:
+      - /opt/linkcust/.env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PG_DATABASE_URL: ${PG_DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      SERVER_URL: ${SERVER_URL}
+      FRONT_BASE_URL: ${FRONT_BASE_URL}
+    ports:
+      - "127.0.0.1:${APP_HTTP_PORT:-3000}:3000"
+    networks:
+      - linkcust
+
+networks:
+  linkcust:
+    name: linkcust
