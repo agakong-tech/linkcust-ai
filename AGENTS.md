@@ -14,6 +14,14 @@ LinkCust AI is forked from Twenty. Twenty remains the platform kernel; LinkCust-
 - Significant intentional divergence from Twenty should be documented under `docs/adr/`.
 - Read `LINKCUST.md` before making architectural changes and `UPSTREAM.md` before changing Twenty core structure.
 
+## License-sensitive code
+
+- Treat any file marked `/* @license Enterprise */` as restricted code that must not be copied, adapted, lightly rewritten, or reused in LinkCust production code unless there is an explicit commercial license decision covering that use.
+- If LinkCust needs functionality that exists only in Twenty Enterprise, first extract the functional requirements and externally observable behavior. Then implement the capability independently from public standards, public documentation, permissively licensed dependencies, and LinkCust's own design.
+- Do not port implementation details, control flow, algorithms, comments, tests, schemas, or substantial code structure from Enterprise-licensed files into LinkCust code. A rename or superficial rewrite is still considered reuse and is not acceptable.
+- When an Enterprise implementation is encountered during development, stop before modifying or depending on it. Prefer a clean-room style reimplementation or an extension/service boundary, and document any licensing uncertainty before proceeding.
+- Preserve existing copyright and license notices in Twenty-derived source files.
+
 ## Twenty codebase rules
 
 Twenty is an open-source CRM — an Nx / Yarn 4 monorepo. Main packages: `twenty-front` (React 18, Jotai, Linaria, Vite), `twenty-server` (NestJS, TypeORM, PostgreSQL, Redis, GraphQL), `twenty-shared` (isomorphic types/utils), `twenty-ui`, `twenty-sdk` (application SDK + CLI), `twenty-e2e-testing` (Playwright).
